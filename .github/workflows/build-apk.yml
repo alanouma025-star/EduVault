@@ -2,7 +2,7 @@ name: Build EduVault APK
 
 on:
   workflow_dispatch:
-
+  push:
 jobs:name: Build EduVault APK
 
 on:
