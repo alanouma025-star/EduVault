@@ -3,6 +3,49 @@ name: Build EduVault APK
 on:
   workflow_dispatch:
   push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract EduVault Android source
+        run: |
+          mkdir buildsrc
+          unzip -q EduVault_Android_Build.zip -d buildsrc
+          SRC=$(find buildsrc -name pubspec.yaml -printf '%h\n' | head -1)
+          test -n "$SRC"
+          echo "SRC=$SRC" >> "$GITHUB_ENV"
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Generate Android project
+        run: |
+          cd "$SRC"
+          flutter create . --platforms=android --project-name eduvault
+          flutter pub get
+
+      - name: Build APK
+        run: |
+          cd "$SRC"
+          flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: EduVault-APK
+          path: ${{ env.SRC }}/build/app/outputs/flutter-apk/app-release.apkname: Build EduVault APK
+
+on:
+  workflow_dispatch:
+  push:
 jobs:name: Build EduVault APK
 
 on:
