@@ -9,9 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: stable
 
@@ -28,29 +30,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: eduvault-apk
-          path: buildsrc/build/app/outputs/flutter-apk/app-release.apkname: Build EduVault APK
-
-on: [push, workflow_dispatch]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-
-      - run: |
-          mkdir buildsrc
-          unzip -q EduVault_Android_Build_CORRECTED.zip -d buildscr
-          cd buildsrc
-          flutter create . --platforms=android
-          flutter pub get
-          flutter build apk --release
-    - uses: actions/upload-artifact@v4
-      with:
-        name: eduvault-apk
-        path: buildscr/build/app,/outputs/
-flutter-apk/app-release.apk
+          path: buildsrc/build/app/outputs/flutter-apk/app-release.apk
