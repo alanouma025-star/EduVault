@@ -9,6 +9,72 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Extract source
+        run: unzip -q EduVault_Android_Build.zip -d buildsrc
+
+      - name: Build
+        run: |
+          cd buildsrc
+          flutter create . --platforms=android
+          flutter pub get
+          flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: EduVault-APK
+          path: buildsrc/build/app/outputs/flutter-apk/app-release.apkname: Build EduVault APK
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Extract source
+        run: unzip -q EduVault_Android_Build.zip -d buildsrc
+
+      - name: Build
+        run: |
+          cd buildsrc
+          flutter create . --platforms=android
+          flutter pub get
+          flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: EduVault-APK
+          path: buildsrc/build/app/outputs/flutter-apk/app-release.apkname: Build EduVault APK
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
@@ -33,7 +99,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: EduVault-APK
-          path: buildsrc/build/app/outputs/flutter-apk/app-release.apkname: Build EduVault APK
+          path: buildsrc/build/app/outputs/flutter-apk/app-release.apkname:  APK
 
 on:
   push:
