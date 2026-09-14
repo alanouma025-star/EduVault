@@ -19,8 +19,8 @@ jobs:
 
       - name: Extract EduVault
         run: |
-          unzip -q EduVault_Nokia_C22_UNIVERSAL_FIX.zip -d source
-          cp -R source/ev/. source_app
+          mkdir source_app
+          unzip -q EduVault_Nokia_C22_UNIVERSAL_FIX.zip -d source_app
 
       - name: Build APK
         working-directory: source_app
