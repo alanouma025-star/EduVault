@@ -20,7 +20,7 @@ jobs:
       - name: Build APK
         run: |
           mkdir buildsrc
-          EduVault_Nokia_C22_FIX.zip
+          EduVault_Nokia_C22_FIX.zip -dbuildsrc
           cd buildsrc
           flutter create . --platforms=android
           flutter pub get
