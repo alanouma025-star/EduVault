@@ -20,7 +20,7 @@ jobs:
       - name: Build APK
         run: |
           mkdir buildsrc
-          unzip -q EduVault_Android_Build_CORRECTED.zip -d buildsrc
+          unzip -q EduVault_Android_Build_PHONE_FIX.zip -d buildsrc
           cd buildsrc
           flutter create . --platforms=android
           flutter pub get
