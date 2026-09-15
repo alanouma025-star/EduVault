@@ -169,7 +169,10 @@ class ProfilePage extends StatelessWidget{
       title:const Text('Admin Dashboard'),
       subtitle:const Text('Administrator controls'),
       trailing:const Icon(Icons.chevron_right),
-      onTap:()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>const AdminDashboard())),
+      onTap: () => Navigator.push(
+  context,
+  MaterialPageRoute(builder: (_) => AdminDashboard()),
+),
     )),
   ]));
 }
