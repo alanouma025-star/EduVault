@@ -1,9 +1,10 @@
-name: Build EduVault Admin Dashboard APK
+name: Build EduVault C22 APKs
 
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
@@ -24,11 +25,20 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Build APK
-        run: flutter build apk --debug --target-platform android-arm,android-arm64
+      - name: Build ARM32 APK
+        run: flutter build apk --debug --target-platform android-arm
 
-      - name: Upload APK
+      - name: Save ARM32 APK
         uses: actions/upload-artifact@v4
         with:
-          name: eduvault-admin-dashboard-debug-apk
+          name: eduvault-c22-arm32-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+
+      - name: Build ARM64 APK
+        run: flutter build apk --debug --target-platform android-arm64
+
+      - name: Save ARM64 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: eduvault-c22-arm64-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
